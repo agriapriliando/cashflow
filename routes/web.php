@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\JenController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [LoginController::class, 'index']);
+
+Route::get('jenis', [JenController::class, 'index']);
+Route::post('jenis', [JenController::class, 'store']);
+Route::get('jenis/{jen}', [JenController::class, 'edit']);
+Route::patch('jenis/{jen}', [JenController::class, 'update']);
+Route::delete('jenis/{jen}', [JenController::class, 'delete']);
