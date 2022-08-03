@@ -37,7 +37,6 @@
     .bg-white-30 {
         background-color: rgba(252, 252, 252, 0.8);
     }
-
 </style>
 
 <body class="bg">
@@ -67,13 +66,13 @@
             </div>
         </nav>
     </div>
-    
+
     {{ $slot }}
 
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    
+
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
@@ -85,6 +84,7 @@
                 placeholder: 'Jenis'
             });
         });
+        document.getElementById('hariini').valueAsDate = new Date();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
