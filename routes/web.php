@@ -20,16 +20,21 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// Route::get('/', [LoginController::class, 'index']);
-Route::get('/', [ActController::class, 'index']);
+Route::get('/', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/logout', [LoginController::class, 'logout']);
 
-Route::get('jenis', [JenController::class, 'index']);
-Route::post('jenis', [JenController::class, 'store']);
-Route::get('jenis/{jen}', [JenController::class, 'edit']);
-Route::patch('jenis/{jen}', [JenController::class, 'update']);
-Route::delete('jenis/{jen}', [JenController::class, 'delete']);
-
-Route::post('act', [ActController::class, 'store']);
-Route::delete('act/{act}', [ActController::class, 'delete']);
-Route::get('act/{act}', [ActController::class, 'edit']);
-Route::patch('act/{act}', [ActController::class, 'update']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('jenis', [JenController::class, 'index']);
+    Route::post('jenis', [JenController::class, 'store']);
+    Route::get('jenis/{jen}', [JenController::class, 'edit']);
+    Route::patch('jenis/{jen}', [JenController::class, 'update']);
+    Route::delete('jenis/{jen}', [JenController::class, 'delete']);
+    
+    Route::get('/act', [ActController::class, 'index']);
+    Route::get('/act/before', [ActController::class, 'before']);
+    Route::post('/act', [ActController::class, 'store']);
+    Route::delete('act/{act}', [ActController::class, 'delete']);
+    Route::get('act/{act}', [ActController::class, 'edit']);
+    Route::patch('act/{act}', [ActController::class, 'update']);
+});

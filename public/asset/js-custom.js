@@ -39,5 +39,9 @@ $(document).ready(function () {
             });
         }
     });
+    
+    // DataTable
+    $('#data_all').DataTable({
+    });
 });
 document.getElementById('hariini').valueAsDate = new Date();

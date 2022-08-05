@@ -39,6 +39,7 @@
                             </div>
                             <button type="submit" class="btn btn-success btn-sm">Simpan</button>
                             <button type="reset" class="btn btn-warning btn-sm">Reset</button>
+                            <a href="{{ url('act') }}" class="btn btn-primary btn-sm">Batal | Kembali</a>
                         </form>
                     </div>
                 </div>
