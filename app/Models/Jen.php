@@ -10,4 +10,9 @@ class Jen extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function act()
+    {
+        return $this->hasMany(Act::class);
+    }
 }

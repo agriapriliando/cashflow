@@ -9,8 +9,8 @@
                     </div>
                     @endif
                     <div class="card-body">
-                        <form action="{{ url('act') }}" method="post">
-                            @method('POST')
+                        <form action="{{ url('act/'.$act->id) }}" method="post">
+                            @method('PATCH')
                             @csrf
                             <p class="h4">Tambah Aktivitas</p>
                             <div class="form-group">

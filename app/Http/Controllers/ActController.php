@@ -4,15 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Models\Act;
 use App\Models\Jen;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ActController extends Controller
 {
     public function index()
     {
-        $acts = Act::with('user')->get();
+        $bulanini = Carbon::now()->month;
+        $bulanlalu = Carbon::now()->subMonth()->month;
+        $acts = Act::with('user')->orderBy('tanggal')->whereMonth('tanggal', $bulanini)->get();
+        $acts_pemasukan = Act::whereMonth('tanggal', $bulanini)->where('jen_id', 1)->get()->sum('nominal');
+        $acts_pengeluaran = Act::whereMonth('tanggal', $bulanini)->where('jen_id', 2)->get()->sum('nominal');
+        $saldo = $acts_pemasukan - $acts_pengeluaran;
+        $acts_pemasukan_last = Act::whereMonth('tanggal', $bulanlalu)->where('jen_id', 1)->get()->sum('nominal');
+        $acts_pengeluaran_last = Act::whereMonth('tanggal', $bulanlalu)->where('jen_id', 2)->get()->sum('nominal');
+        $saldo_last = $acts_pemasukan_last - $acts_pengeluaran_last;
         $jenis = Jen::all();
-        return view('act.index', compact('acts','jenis'));
+        $acts_before = Act::with('user')->orderBy('tanggal')->whereMonth('tanggal','<', $bulanini)->get();
+        // $sum_nominal = Jen::with(['act' => function($query){
+            //     $query->whereMonth('tanggal', Carbon::now()->month)->whereYear('tanggal', Carbon::now()->year)->groupBy('jen_id')->select('jen_id', DB::raw('SUM(nominal) AS nominal_sum'));
+            //     }])->get();
+        // $sum_nominal_pemasukan = DB::table('acts')->where('jen_id',1)->whereMonth('tanggal', Carbon::now()->month)->groupBy('jen_id')->select('jen_id', DB::raw('SUM(nominal) AS nominal_sum'))->get()->pluck('nominal_sum');
+        // $sum_nominal_pengeluaran = DB::table('acts')->where('jen_id',2)->whereMonth('tanggal', Carbon::now()->month)->groupBy('jen_id')->select('jen_id', DB::raw('SUM(nominal) AS nominal_sum'))->get()->pluck('nominal_sum');
+        // $saldo = $sum_nominal_pemasukan[0]-$sum_nominal_pengeluaran[0];    
+        // $sum_nominal_pemasukan_last_month = DB::table('acts')->where('jen_id',1)->whereMonth('tanggal', Carbon::now()->subMonth()->month)->groupBy('jen_id')->select('jen_id', DB::raw('SUM(nominal) AS nominal_sum'))->get()->pluck('nominal_sum');
+        // $sum_nominal_pengeluaran_last_month = DB::table('acts')->where('jen_id',2)->whereMonth('tanggal', Carbon::now()->subMonth()->month)->groupBy('jen_id')->select('jen_id', DB::raw('SUM(nominal) AS nominal_sum'))->get()->pluck('nominal_sum');
+        // if($sum_nominal_pengeluaran_last_month)
+        // {
+        //     $sum_nominal_pengeluaran_last_month[]=0;
+        // } else {
+        //     $sum_nominal_pengeluaran_last_month;
+        // }
+        // $saldo_last_month = $sum_nominal_pemasukan_last_month[0]-$sum_nominal_pengeluaran_last_month[0];    
+        return view('act.index', 
+        compact(
+            'acts','jenis','acts_before','acts_pemasukan','acts_pengeluaran','saldo',
+            'acts_pemasukan_last','acts_pengeluaran_last','saldo_last'
+        ));
     }
 
     public function store(Request $request)

@@ -30,8 +30,8 @@
     }
 
     .bg {
-        background: url("asset/bg-image.jpg") no-repeat right center;
-        /* background-size: cover; */
+        background: url("/asset/bg-image.jpg") no-repeat right center;
+        background-size: cover;
     }
 
     .bg-white-30 {
