@@ -23,21 +23,6 @@ class ActController extends Controller
         $saldo_last = $acts_pemasukan_last - $acts_pengeluaran_last;
         $jenis = Jen::all();
         $acts_before = Act::with('user')->orderBy('tanggal')->whereMonth('tanggal','<', $bulanini)->get();
-        // $sum_nominal = Jen::with(['act' => function($query){
-            //     $query->whereMonth('tanggal', Carbon::now()->month)->whereYear('tanggal', Carbon::now()->year)->groupBy('jen_id')->select('jen_id', DB::raw('SUM(nominal) AS nominal_sum'));
-            //     }])->get();
-        // $sum_nominal_pemasukan = DB::table('acts')->where('jen_id',1)->whereMonth('tanggal', Carbon::now()->month)->groupBy('jen_id')->select('jen_id', DB::raw('SUM(nominal) AS nominal_sum'))->get()->pluck('nominal_sum');
-        // $sum_nominal_pengeluaran = DB::table('acts')->where('jen_id',2)->whereMonth('tanggal', Carbon::now()->month)->groupBy('jen_id')->select('jen_id', DB::raw('SUM(nominal) AS nominal_sum'))->get()->pluck('nominal_sum');
-        // $saldo = $sum_nominal_pemasukan[0]-$sum_nominal_pengeluaran[0];    
-        // $sum_nominal_pemasukan_last_month = DB::table('acts')->where('jen_id',1)->whereMonth('tanggal', Carbon::now()->subMonth()->month)->groupBy('jen_id')->select('jen_id', DB::raw('SUM(nominal) AS nominal_sum'))->get()->pluck('nominal_sum');
-        // $sum_nominal_pengeluaran_last_month = DB::table('acts')->where('jen_id',2)->whereMonth('tanggal', Carbon::now()->subMonth()->month)->groupBy('jen_id')->select('jen_id', DB::raw('SUM(nominal) AS nominal_sum'))->get()->pluck('nominal_sum');
-        // if($sum_nominal_pengeluaran_last_month)
-        // {
-        //     $sum_nominal_pengeluaran_last_month[]=0;
-        // } else {
-        //     $sum_nominal_pengeluaran_last_month;
-        // }
-        // $saldo_last_month = $sum_nominal_pemasukan_last_month[0]-$sum_nominal_pengeluaran_last_month[0];    
         return view('act.index', 
         compact(
             'acts','jenis','acts_before','acts_pemasukan','acts_pengeluaran','saldo',

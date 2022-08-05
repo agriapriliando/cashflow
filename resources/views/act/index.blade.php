@@ -110,16 +110,16 @@
             <div class="col-12">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <p class="h4">Aktivitas Keuangan {{ Carbon\Carbon::now()->translatedFormat('F Y') }}</p>
+                        <p class="h4">Bulan Ini : {{ Carbon\Carbon::now()->translatedFormat('F Y') }}</p>
                         <div class="card-text">
-                            <table class="table table-bordered">
+                            <table id="zero_config" class="table table-bordered dt-responsive" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Tanggal</th>
                                         <th>Keterangan</th>
                                         <th>Nominal</th>
-                                        <th class="d-none d-sm-block">###</th>
+                                        <th class="d-none d-md-block">###</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -128,39 +128,50 @@
                                         <td>{{ $loop->iteration }}</td>
                                         {{-- <td>{{ date_format($item->tanggal,"d-m-Y H:i") }}</td> --}}
                                         <td>{{ Carbon\Carbon::parse($item->tanggal)->translatedFormat('d/m/Y') }}</td>
-                                        <td>{{ $item->note }}
+                                        <td>
                                             @if ( $item->jen->id == 1 )
                                             <span class="badge badge-primary">{{ $item->jen->name }}</span>
                                             @endif
                                             @if ( $item->jen->id == 2 )
                                             <span class="badge badge-success">{{ $item->jen->name }}</span>
-                                            @endif
+                                            @endif <br>
+                                            {{ $item->note }}
                                             <br>
-                                            <div class="d-sm-none mt-2">
+                                            <div class="d-md-none mt-2">
                                                 <a href="{{ url('act/'.$item->id) }}" class="btn btn-warning btn-sm"><i
                                                     class="bi bi-pencil"></i></a>
                                             <form class="d-inline" action="{{ url('act/'.$item->id) }}" method="post">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button onclick="confirm('Yakin ingin menghapus?')" type="submit"
+                                                <button onclick="return confirm('Yakin ingin Hapus Data?')" type="submit"
                                                     class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                                             </div>
+                                            
                                         </form>
                                         </td>
                                         <td>{{ $item->nominal }}</td>
-                                        <td class="d-none d-sm-block">
+                                        <td class="d-none d-md-block">
                                             <a href="{{ url('act/'.$item->id) }}" class="btn btn-warning btn-sm"><i
                                                     class="bi bi-pencil"></i></a>
                                             <form class="d-inline" action="{{ url('act/'.$item->id) }}" method="post">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button onclick="confirm('Yakin ingin menghapus?')" type="submit"
+                                                <button onclick="return confirm('Yakin ingin Hapus Data?')" type="submit"
                                                     class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th>Keterangan</th>
+                                        <th>Nominal</th>
+                                        <th class="d-none d-sm-block">###</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
