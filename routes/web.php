@@ -3,6 +3,7 @@
 use App\Http\Controllers\ActController;
 use App\Http\Controllers\JenController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,4 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('act/{act}', [ActController::class, 'delete']);
     Route::get('act/{act}', [ActController::class, 'edit']);
     Route::patch('act/{act}', [ActController::class, 'update']);
+
+    Route::get('report', [ReportController::class, 'index']);
+    Route::get('report/cetak', [ReportController::class, 'report']);
 });

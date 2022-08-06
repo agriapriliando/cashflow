@@ -5,6 +5,11 @@
                 @method('POST')
                 @csrf
                 <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <p class="h4 text-center">Login</p>
                     <div class="form-group row">
                         <label class="col-sm-3">Username</label>

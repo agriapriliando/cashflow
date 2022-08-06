@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RecursiveRegexIterator;
 
 class LoginController extends Controller
 {
@@ -23,6 +24,8 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $remember))
         {
             return redirect('act')->with('status', 'Anda Berhasil Login');
+        } else {
+            return redirect('/')->with('status', "Username atau Password Salah");
         }
     }
 
