@@ -40,5 +40,5 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('act/{act}', [ActController::class, 'update']);
 
     Route::get('report', [ReportController::class, 'index']);
-    Route::get('report/cetak', [ReportController::class, 'report']);
+    Route::post('report/cetak', [ReportController::class, 'report']);
 });

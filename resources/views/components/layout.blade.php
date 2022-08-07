@@ -63,11 +63,14 @@
                         </a>
                     </li>
                     <li class="nav-item {{ (request()->is('act/before')) ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('act/before') }}">Aktivitas Lainnya
+                        <a class="nav-link" href="{{ url('act/before') }}">Aktivitas Lampau
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Report</a>
+                        <a class="nav-link" href="{{ url('report') }}">Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Logout</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0 d-none">

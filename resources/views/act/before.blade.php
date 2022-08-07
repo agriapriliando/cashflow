@@ -4,7 +4,8 @@
             <div class="col-12">
                 <div class="card shadow-lg">
                     <div class="card-body">
-                        <p class="h4">Aktivitas Keuangan Sebelumnya</p>
+                        <p class="h4">Aktivitas Keuangan Lampau</p>
+                        <p class="h6">{{ Carbon\Carbon::parse($tanggal_mulai)->translatedFormat('d F Y') }} sd {{ Carbon\Carbon::now()->subMonth()->endOfMonth()->translatedFormat('d F Y') }}</p>
                         <a href="{{ url('act') }}" class="btn btn-success">Kembali</a>
                         <div class="card-text mt-2">
                             <table id="data_all" class="table table-bordered dt-responsive" style="width:100%">

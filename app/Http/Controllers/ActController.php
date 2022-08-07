@@ -10,13 +10,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ActController extends Controller
-{  
+{
+    public function __construct()
+    {
+        date_default_timezone_set("Asia/Jakarta");
+    }
+    
     public function index()
     {
         // return url()->current();
         $bulanini = Carbon::now()->month;
         $bulanlalu = Carbon::now()->subMonth()->month;
-        $acts = Act::with('user')->orderBy('tanggal')->whereMonth('tanggal', $bulanini)->get();
+        $acts = Act::with('user','jen')->orderBy('tanggal')->whereMonth('tanggal', $bulanini)->get();
         $acts_pemasukan = Act::whereMonth('tanggal', $bulanini)->where('jen_id', 1)->get()->sum('nominal');
         $acts_pengeluaran = Act::whereMonth('tanggal', $bulanini)->where('jen_id', 2)->get()->sum('nominal');
         $saldo = $acts_pemasukan - $acts_pengeluaran;
@@ -34,7 +39,8 @@ class ActController extends Controller
     public function before()
     {
         $acts_before = Act::with('user')->orderBy('tanggal')->whereMonth('tanggal','<', Carbon::now()->month)->get();
-        return view('act.before', compact('acts_before'));
+        $tanggal_mulai = Act::orderBy('tanggal')->pluck('tanggal')->first();
+        return view('act.before', compact('acts_before','tanggal_mulai'));
     }
 
     public function store(Request $request)
@@ -45,7 +51,7 @@ class ActController extends Controller
         ]);
 
         Act::insert([
-            'user_id' => 1,
+            'user_id' => Auth::id(),
             'jen_id' => $request->jen_id,
             'tanggal' => $request->tanggal,
             'note' => $request->note,
@@ -63,9 +69,8 @@ class ActController extends Controller
 
     public function edit(Act $act)
     {
-        $acts = Act::with('user', 'jen')->get();
         $jenis = Jen::all();
-        return view('act.edit', compact('act', 'acts', 'jenis'));
+        return view('act.edit', compact('act', 'jenis'));
     }
 
     public function update(Request $request, Act $act)
@@ -76,7 +81,6 @@ class ActController extends Controller
         ]);
 
         $act->update([
-            'user_id' => 1,
             'jen_id' => $request->jen_id,
             'tanggal' => $request->tanggal,
             'note' => $request->note,
