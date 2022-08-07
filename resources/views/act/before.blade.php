@@ -31,6 +31,7 @@
                                             @if ( $item->jen->id == 2 )
                                             <span class="badge badge-success">{{ $item->jen->name }}</span>
                                             @endif
+                                            <span class="badge badge-info">{{ $item->user->username }}</span>
                                             <br>
                                             <div class="d-sm-none mt-2">
                                                 <a href="{{ url('act/'.$item->id) }}" class="btn btn-warning btn-sm"><i

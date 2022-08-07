@@ -134,7 +134,9 @@
                                             @endif
                                             @if ( $item->jen->id == 2 )
                                             <span class="badge badge-success">{{ $item->jen->name }}</span>
-                                            @endif <br>
+                                            @endif
+                                            <span class="badge badge-info">{{ $item->user->username }}</span>
+                                            <br>
                                             {{ $item->note }}
                                             <br>
                                             <div class="d-md-none mt-2">

@@ -16,11 +16,11 @@ class JenSeeder extends Seeder
     {
         DB::table('jens')->insert([
             [
-                'name' => 'In',
+                'name' => 'Pemasukan',
                 'note' => 'Income, uang masuk',
             ],
             [
-                'name' => 'Out',
+                'name' => 'Pengeluaran',
                 'note' => 'Outcome, uang keluar',
             ],
             [
